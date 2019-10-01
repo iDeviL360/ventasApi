@@ -1,0 +1,4 @@
+node_modules
+sql
+.env
+dist
