@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports["default"]=void 0;var _express=require("express");var _usuario=require("../controllers/usuario.controller");var router=(0,_express.Router)();router.post('/registro',_usuario.registrarUsuario);router.post('/login',_usuario.loggearUsuario);var _default=router;exports["default"]=_default;
