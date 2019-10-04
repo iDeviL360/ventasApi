@@ -9,9 +9,9 @@ export const sequelize = new Sequelize(
     {
         host: process.env.HEROKU_DB_HOST || 'localhost',
         dialect: 'postgres',
-        /* dialectOptions: {
+        dialectOptions: {
             ssl: true
-        }, */
+        },
         pool: {
             max: 5,
             min: 0,
