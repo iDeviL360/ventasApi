@@ -131,3 +131,65 @@ export async function borrarVenta(req, res) {
     }
 
 }
+
+export async function editarVenta(req, res) {
+
+    try {
+
+        const { ventaid } = req.params;
+        const { clienteid, total, ventaItems, usuarioid, ventaItemsDel } = req.body;
+        
+        await Venta.update({
+            clienteid,
+            total,
+            usuarioid
+        }, {
+            where: {
+                ventaid
+            }
+        });
+
+        if(ventaItemsDel.length > 0) {
+            ventaItemsDel.forEach(async ventadetalleid => {
+                await VentaDetalle.destroy({
+                    where: {
+                        ventadetalleid
+                    }
+                })
+            })
+        }
+
+        ventaItems.forEach(async (ventaItem) => {
+            const { productoid, precio, ventadetalleid } = ventaItem;
+            if(ventadetalleid) {
+
+                await VentaDetalle.update({
+                    productoid,
+                    precio
+                }, {
+                    where: {
+                        ventadetalleid
+                    }
+                });
+            } else {
+                await VentaDetalle.create({
+                    ventaid,
+                    productoid,
+                    precio
+                }, {
+                    fields: ['ventaid', 'productoid', 'precio']
+                })
+            }
+        })
+
+
+        res.json({
+            message: 'Editado con exito!'
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Uups, algo ha ido mal!'
+        })
+    }
+}

@@ -3,6 +3,7 @@ import express, { json, urlencoded } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 
 //Routes imports
@@ -23,6 +24,10 @@ app.use(morgan('dev'));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cors());
+
+
+//Static Files
+app.use(express.static(path.join(__dirname, "public")));
 
 
 //Rutas
