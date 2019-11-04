@@ -1,5 +1,3 @@
 node_modules
-sql
 .env
-src
-.babelrc
+dist
